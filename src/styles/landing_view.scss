@@ -1,0 +1,39 @@
+.landing .top_div {
+    display: flex;
+    background-color: white;
+    height: 60vh;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    position: relative;
+}
+
+.landing .top_div h1 {
+    color: rgb(0, 243, 170);
+    letter-spacing: 2rem;
+    font-size: 7vw;
+    font-weight: bold;
+    position: absolute;
+    text-align: center;
+    bottom: 5vh; 
+
+    @include large {
+        font-size: 5vw;
+        bottom: 10vh; 
+    }
+
+    @include medium {
+        bottom: 15vh; 
+    }
+
+    @include small {
+        font-size: 7vw;
+    }
+
+}
+
+.landing .bottom_div {
+    display: flex;
+    background-color:rgb(0, 243, 170);
+    height: 40vh;
+}

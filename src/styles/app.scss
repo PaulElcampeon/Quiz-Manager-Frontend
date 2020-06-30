@@ -1,0 +1,12 @@
+@import "./media_queries";
+@import "./quizzes_view";
+@import "./landing_view";
+@import "./login_view";
+@import "./quiz_item";
+@import "./quiz";
+@import "./navbar";
+
+.App {
+    height: 100vh;
+    // overflow: hidden;
+}

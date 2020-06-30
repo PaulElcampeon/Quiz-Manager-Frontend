@@ -1,0 +1,48 @@
+.quizzes {
+    position: relative;
+}
+
+.quizzes_holder {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    height: auto;
+    flex-flow: wrap;
+
+    @include small {
+        flex-direction: column;
+        align-content: center;
+    }
+}
+
+.quizListItem_holder {
+    margin: 1rem;
+    width: 20%;
+    height: 100px;
+
+    @include small {
+        width: 80%;
+    }
+}
+
+.quizListBtn {
+    border-radius: 1rem;
+    border: 3px solid grey;
+    background-color: white;
+    color:rgb(0, 243, 170);
+    font-weight: bold;
+    font-size: 1.2rem;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+
+    @include medium {
+        font-size: 1rem;
+    }
+
+    &:hover {
+        background-color: rgb(0, 243, 170);
+        color: white
+    }
+}
