@@ -90,10 +90,10 @@ export const deleteQuizInStore = (quizId) => {
     }
 }
 
-export const updateOneQuizInStore = (quiz) => {
+export const updateOneQuizInStore = (quizWithIndex) => {
     return {
         type: UPDATE_ONE_QUIZ_IN_STORE,
-        quiz: quiz
+        quizWithIndex: quizWithIndex
     }
 }
 

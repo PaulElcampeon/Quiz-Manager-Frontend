@@ -21,22 +21,22 @@ export const quizMiddleware = (state) => (next) => (action) => {
                     store.dispatch(updateMessage("Something wrong happened"))
                 })
             break;
-        case UPDATE_ONE_QUIZ_IN_STORE:
-            updateQuiz(action.data)
-                .then(res => res.json())
-                .then(data => {
-                    if (data.status && data.status !== 202) {
-                        store.dispatch(updateMessage("Something wrong happened"))
-                    } else {
-                        store.dispatch(updateOneQuizInStore(data.quiz));
-                        store.dispatch(updateMessage(null))
-                    }
-                })
-                .catch(error => {
-                    console.log(error.message)
-                    store.dispatch(updateMessage("Something wrong happened"))
-                })
-            break;
+        // case UPDATE_ONE_QUIZ_IN_STORE:
+        //     updateQuiz(action.data)
+        //         .then(res => res.json())
+        //         .then(data => {
+        //             if (data.status && data.status !== 202) {
+        //                 store.dispatch(updateMessage("Something wrong happened"))
+        //             } else {
+        //                 store.dispatch(updateOneQuizInStore(data.quiz));
+        //                 store.dispatch(updateMessage(null))
+        //             }
+        //         })
+        //         .catch(error => {
+        //             console.log(error.message)
+        //             store.dispatch(updateMessage("Something wrong happened"))
+        //         })
+        //     break;
         // case UPDATE_ALL_QUIZZES_IN_STORE:
         //     updateQuiz()
         //         .then(res => res.json())
