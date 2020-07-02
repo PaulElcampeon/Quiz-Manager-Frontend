@@ -1,18 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import QuizListItem from '../items/QuizListItem';
 import { useSelector } from 'react-redux';
 import QuizItem from '../items/QuizItem';
 
 const Quizzes = (props) => {
+
+    //Redux tools
     const storeExtractor = useSelector(store => store);
     const { quizzes } = storeExtractor;
-    const [currentQuizzes, updateQuizzes] = useState(quizzes);
+
+    //Managing local component state
     const [showQuizItem, setShowQuizItem] = useState(false);
     const [quizItem, setQuizItem] = useState(null);
-
-    const updateQuizzesToCurrent = () => {
-        updateQuizzes(storeExtractor.quizzes)
-    }
 
     return (
         <div className="quizzes">
@@ -20,11 +19,11 @@ const Quizzes = (props) => {
                 {quizzes.map((element, index) =>
                     <QuizListItem key={index} {...element}
                         onClick={() => {
-                            setQuizItem({quizItem: element, index: index});
+                            setQuizItem({ quizItem: element, index: index });
                             setShowQuizItem(true);
                         }} />)}
             </div>
-            {showQuizItem ? <QuizItem onClose={() => { setShowQuizItem(false) }} {...quizItem} updateQuizzes={updateQuizzesToCurrent}/> : ""}
+            {showQuizItem ? <QuizItem onClose={() => { setShowQuizItem(false) }} {...quizItem} /> : ""}
         </div>
     )
 }

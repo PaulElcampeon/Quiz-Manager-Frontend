@@ -3,8 +3,9 @@ import { useSelector } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 
 export const ProtectedRoute = ({ component: Component, ...rest }) => {
+    
+    //Redux tools
     const storeExtractor = useSelector(state => state);
-
     const { token } = storeExtractor;
 
     return (
@@ -12,7 +13,7 @@ export const ProtectedRoute = ({ component: Component, ...rest }) => {
             {...rest}
             render={
                 (props) => {
-                    if (token) {
+                    if (token.token) {
                         return <Component {...props} />
                     } else {
                         return <Redirect to={
