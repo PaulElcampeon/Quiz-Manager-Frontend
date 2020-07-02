@@ -3,6 +3,7 @@ export const LOGOUT = 'LOGOUT';//should be a middleware
 export const LOGGED_IN = 'LOGGED_IN';
 export const LOGGING_IN = 'LOGGING_IN';
 
+export const AUTHENTICATE_TOKEN = 'AUTHENTICATE_TOKEN';
 export const UPDATE_TOKEN = 'UPDATE_TOKEN';
 
 export const UPDATE_MESSAGE = 'UPDATE_MESSAGE';
@@ -16,17 +17,25 @@ export const DELETE_QUIZ = 'DELETE_QUIZ';
 export const DELETE_QUIZ_IN_STORE = 'DELETE_QUIZ_IN_STORE';
 export const ADD_QUIZ_IN_STORE = 'ADD_QUIZ_IN_STORE';
 
-export const loggingIn = () => {
-    return {
-        type: LOGGING_IN,
-        loggingIn: true
-    }
-}
-
 export const loginAction = (credential) => {
     return {
         type: LOGIN,
         credential: credential
+    }
+}
+
+export const authenticateToken = (token) => {
+    return {
+        type: AUTHENTICATE_TOKEN,
+        token: token
+    }
+}
+
+
+export const loggingIn = () => {
+    return {
+        type: LOGGING_IN,
+        loggingIn: true
     }
 }
 
@@ -50,9 +59,10 @@ export const updateToken = (token) => {
     }
 }
 
-export const getQuizzes = () => {
+export const getQuizzes = (token) => {
     return {
-        type: GET_QUIZZES
+        type: GET_QUIZZES,
+        token: token
     }
 }
 
@@ -63,24 +73,24 @@ export const addQuizInStore = (quiz) => {
     }
 }
 
-export const updateQuiz = (quiz) => {
+export const updateQuizInDB = (quizWithToken) => {
     return {
         type: UPDATE_QUIZ,
-        quiz: quiz
+        quizWithToken: quizWithToken
     }
 }
 
-export const createQuiz = (quiz) => {
+export const createQuiz = (quizWithToken) => {
     return {
         type: CREATE_QUIZ,
-        quiz: quiz
+        quizWithToken: quizWithToken
     }
 }
 
-export const deleteQuiz = (quizId) => {
+export const deleteQuiz = (quizIdWithToken) => {
     return {
         type: DELETE_QUIZ,
-        quizId: quizId
+        quizIdWithToken: quizIdWithToken
     }
 }
 export const deleteQuizInStore = (quizId) => {
@@ -90,10 +100,10 @@ export const deleteQuizInStore = (quizId) => {
     }
 }
 
-export const updateOneQuizInStore = (quizWithIndex) => {
+export const updateOneQuizInStore = (quiz) => {
     return {
         type: UPDATE_ONE_QUIZ_IN_STORE,
-        quizWithIndex: quizWithIndex
+        quiz: quiz
     }
 }
 
@@ -103,6 +113,10 @@ export const updateAllQuizzesInStore = (quizzes) => {
         quizzes: quizzes
     }
 }
+
+
+
+
 
 export const updateMessage = (message) => {
     return {
