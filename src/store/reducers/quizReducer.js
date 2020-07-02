@@ -5,15 +5,15 @@ const quizReducer = (state = [], action) => {
         case UPDATE_ALL_QUIZZES_IN_STORE:
             return action.quizzes;
         case UPDATE_ONE_QUIZ_IN_STORE:
-            const obj = action.quizWithIndex;
-            return state.map((element, index) => {
-                if (index === obj.index) return obj.quiz;
+            const quiz = action.quiz;
+            return state.map(element => {
+                if (element.quizTitle === quiz.quizTitle) return quiz;
                 return element;
             })
         case ADD_QUIZ_IN_STORE:
             return state.concat(action.quiz);
         case DELETE_QUIZ_IN_STORE:
-            return state.filter((element, index) => action.quizId !== index);
+            return state.filter(element => action.quizId !== element.quizTitle);
         default:
             return state;
     }

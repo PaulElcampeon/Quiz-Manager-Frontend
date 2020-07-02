@@ -6,9 +6,9 @@ export const logoutMiddleware = (state) => (next) => (action) => {
     switch (action.type) {
         case LOGOUT:
             store.dispatch(loggedInAction(false));
-            store.dispatch(updateToken(null));
-            store.dispatch(updateMessage(null));
+            store.dispatch(updateToken({ token: null, permLv: 1 }));
             SessionManager.removeUserData();
+            store.dispatch(updateMessage(null));
             break;
         default:
             next(action);

@@ -9,7 +9,7 @@ const rootReducer = combineReducers({
     loggingIn: loggingInReducer,
     quizzes: quizReducer,
     loggedIn: loggedInReducer,
-    genericMessage: messageReducer,
+    message: messageReducer,
     token: tokenReducer
 })
 

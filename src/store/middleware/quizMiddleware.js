@@ -1,18 +1,25 @@
-import { GET_QUIZZES, UPDATE_ONE_QUIZ_IN_STORE, DELETE_QUIZ, CREATE_QUIZ, 
-    updateMessage, updateOneQuizInStore, updateAllQuizzesInStore, deleteQuizInStore, addQuizInStore } from '../actions/index';
-import { updateQuiz, createQuiz, deleteQuiz, getQuizzes } from '../../comms/commsService'
+import {
+    GET_QUIZZES, DELETE_QUIZ, CREATE_QUIZ, UPDATE_QUIZ,
+    updateMessage, updateOneQuizInStore, updateAllQuizzesInStore,
+    deleteQuizInStore, addQuizInStore
+} from '../actions/index';
+import { createQuiz, deleteQuiz, getQuizzes } from '../../comms/commsService'
 import store from '../index';
 
 export const quizMiddleware = (state) => (next) => (action) => {
     switch (action.type) {
         case GET_QUIZZES:
-            getQuizzes()
+            getQuizzes(action.token)
                 .then(res => res.json())
                 .then(data => {
                     if (data.status && data.status !== 202) {
                         store.dispatch(updateMessage("Something wrong happened"))
                     } else {
-                        store.dispatch(updateAllQuizzesInStore(data.quizzes));
+                        if (data === undefined) {
+                            store.dispatch(updateAllQuizzesInStore([]));
+                        } else {
+                            store.dispatch(updateAllQuizzesInStore(data));
+                        }
                         store.dispatch(updateMessage(null))
                     }
                 })
@@ -21,46 +28,14 @@ export const quizMiddleware = (state) => (next) => (action) => {
                     store.dispatch(updateMessage("Something wrong happened"))
                 })
             break;
-        // case UPDATE_ONE_QUIZ_IN_STORE:
-        //     updateQuiz(action.data)
-        //         .then(res => res.json())
-        //         .then(data => {
-        //             if (data.status && data.status !== 202) {
-        //                 store.dispatch(updateMessage("Something wrong happened"))
-        //             } else {
-        //                 store.dispatch(updateOneQuizInStore(data.quiz));
-        //                 store.dispatch(updateMessage(null))
-        //             }
-        //         })
-        //         .catch(error => {
-        //             console.log(error.message)
-        //             store.dispatch(updateMessage("Something wrong happened"))
-        //         })
-        //     break;
-        // case UPDATE_ALL_QUIZZES_IN_STORE:
-        //     updateQuiz()
-        //         .then(res => res.json())
-        //         .then(data => {
-        //             if (data.status && data.status !== 202) {
-        //                 store.dispatch(updateMessage("Something wrong happened"))
-        //             } else {
-        //                 store.dispatch(updateProjects(data.projects));
-        //                 store.dispatch(updateMessage(null))
-        //             }
-        //         })
-        //         .catch(error => {
-        //             console.log(error.message)
-        //             store.dispatch(updateMessage("Something wrong happened"))
-        //         })
-        //     break;
         case DELETE_QUIZ:
-            deleteQuiz(action.data)
+            deleteQuiz(action.quizIdWithToken.quizId, action.quizIdWithToken.token)
                 .then(res => res.json())
                 .then(data => {
                     if (data.status && data.status !== 202) {
                         store.dispatch(updateMessage("Something wrong happened"))
                     } else {
-                        store.dispatch(deleteQuizInStore(action.data));
+                        store.dispatch(deleteQuizInStore(action.quizIdWithToken.quizId));
                         store.dispatch(updateMessage(null))
                     }
                 })
@@ -70,13 +45,29 @@ export const quizMiddleware = (state) => (next) => (action) => {
                 })
             break;
         case CREATE_QUIZ:
-            createQuiz(action.data)
+            createQuiz(action.quizWithToken.quiz, action.quizWithToken.token)
                 .then(res => res.json())
                 .then(data => {
                     if (data.status && data.status !== 202) {
                         store.dispatch(updateMessage("Something wrong happened"))
                     } else {
-                        store.dispatch(addQuizInStore(action.data));
+                        store.dispatch(addQuizInStore(action.quizWithToken.quiz));
+                        store.dispatch(updateMessage(null))
+                    }
+                })
+                .catch(error => {
+                    console.log(error.message)
+                    store.dispatch(updateMessage("Something wrong happened"))
+                })
+            break;
+        case UPDATE_QUIZ:
+            createQuiz(action.quizWithToken.quiz, action.quizWithToken.token)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status && data.status !== 202) {
+                        store.dispatch(updateMessage("Something wrong happened"))
+                    } else {
+                        store.dispatch(updateOneQuizInStore(action.quizWithToken.quiz));
                         store.dispatch(updateMessage(null))
                     }
                 })
