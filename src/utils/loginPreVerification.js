@@ -1,5 +1,5 @@
-const verify = ({email, password}) => {
-    const valid = email.includes('.') && email.includes('@') && password.length >= 5
+const verify = ({username, password}) => {
+    const valid = username.length > 0 && password.length > 0
     return valid;
 }
 
