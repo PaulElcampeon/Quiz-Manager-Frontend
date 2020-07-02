@@ -10,12 +10,25 @@ export const addQuiz = (quiz, token) => {
     })
 }
 
-export const getQuizzes = () => {
+export const aunthticateTokenRequest = (token) => {
+    return fetch('/user/token/authenticate', {
+        method: 'post',
+        body: JSON.stringify({authenticating: true}),
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
+}
+
+export const getQuizzes = (token) => {
     return fetch('/quiz/get', {
         method: 'get',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
         }
     })
 }
@@ -47,7 +60,7 @@ export const createQuiz = (quiz, token) => {
 export const deleteQuiz = (quizId, token) => {
     return fetch('/quiz/delete', {
         method: 'delete',
-        body: JSON.stringify({id:quizId}),
+        body: JSON.stringify({quizId:quizId}),
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
